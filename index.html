@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday to My Beautiful Fiancée! 💖</title>
+    <style>
+        /* Reset & Styling setup */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* Soft, romantic gradient background */
+            background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 50%, #e1bee7 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+
+        /* Mobile-optimized interactive card */
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 30px;
+            padding: 35px 25px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(233, 30, 99, 0.15);
+            max-width: 420px;
+            width: 100%;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+
+        .heart-icon {
+            font-size: 55px;
+            margin-bottom: 10px;
+            display: inline-block;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        h1 {
+            color: #4a148c;
+            font-size: 2.1rem;
+            margin-bottom: 10px;
+            font-weight: 800;
+            line-height: 1.3;
+        }
+
+        .title-highlight {
+            background: linear-gradient(45deg, #d81b60, #8e24aa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: block;
+        }
+
+        p {
+            color: #555;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        /* Countdown Visual Grid */
+        .countdown-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+            background: rgba(248, 187, 208, 0.3);
+            padding: 15px;
+            border-radius: 20px;
+        }
+
+        .time-box {
+            background: white;
+            padding: 10px 5px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+        }
+
+        .time-num {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #8e24aa;
+            display: block;
+        }
+
+        .time-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: #888;
+            letter-spacing: 1px;
+            margin-top: 2px;
+            display: block;
+        }
+
+        /* Zootopia Moving Character Track Section */
+        .zootopia-theater {
+            margin: 20px 0;
+            background: rgba(248, 187, 208, 0.15);
+            padding: 12px 0;
+            border-radius: 20px;
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.05);
+            overflow: hidden;
+            position: relative;
+            height: 95px;
+        }
+
+        .theater-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #6a1b9a;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            position: absolute;
+            width: 100%;
+            top: 8px;
+            z-index: 2;
+        }
+
+        /* Animated Walkways */
+        .character-track {
+            position: absolute;
+            bottom: 5px;
+            width: 100%;
+            height: 55px;
+        }
+
+        .moving-sprite {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            bottom: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .moving-emoji {
+            font-size: 36px;
+            line-height: 1;
+        }
+
+        .moving-name {
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: #888;
+            margin-top: 2px;
+            white-space: nowrap;
+        }
+
+        /* Continuous Horizontal Tracking Animations */
+        .judy-walker {
+            animation: 
+                crossScreenJudy 9s infinite linear,
+                bunnyHop 0.4s infinite ease-in-out alternate;
+        }
+
+        .nick-walker {
+            animation: 
+                crossScreenNick 14s infinite linear,
+                foxStrut 0.6s infinite ease-in-out alternate;
+        }
+
+        .flash-walker {
+            animation: 
+                crossScreenFlash 35s infinite linear,
+                slothSloMo 2s infinite ease-in-out alternate;
+        }
+
+        /* Interactive Button */
+        .btn {
+            background: linear-gradient(45deg, #d81b60, #ec407a);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(216, 27, 96, 0.3);
+            transition: all 0.2s ease;
+            outline: none;
+            width: 100%;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .btn:active {
+            transform: scale(0.97);
+            box-shadow: 0 3px 10px rgba(216, 27, 96, 0.3);
+        }
+
+        #confetti-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        /* Message displayed once countdown finishes */
+        .birthday-message {
+            display: none;
+            font-size: 1.15rem;
+            color: #d81b60;
+            font-weight: 600;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        /* Core Layout Keyframes */
+        @keyframes fadeInUp {
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+
+        /* --- HORIZONTAL TRACKING ANIMATIONS --- */
+        /* Judy runs fast left to right, turns around, runs back */
+        @keyframes crossScreenJudy {
+            0% { left: -15%; transform: scaleX(1); }
+            49% { transform: scaleX(1); }
+            50% { left: 105%; transform: scaleX(-1); }
+            99% { transform: scaleX(-1); }
+            100% { left: -15%; transform: scaleX(1); }
+        }
+
+        /* Nick strolls smoothly right to left, turns around, strolls back */
+        @keyframes crossScreenNick {
+            0% { left: 110%; transform: scaleX(-1); }
+            49% { transform: scaleX(-1); }
+            50% { left: -20%; transform: scaleX(1); }
+            99% { transform: scaleX(1); }
+            100% { left: 110%; transform: scaleX(-1); }
+        }
+
+        /* Flash moves exceptionally slow across the screen */
+        @keyframes crossScreenFlash {
+            0% { left: -15%; }
+            100% { left: 115%; }
+        }
+
+        /* --- VERTICAL GAIT/WALKING ANIMATIONS --- */
+        @keyframes bunnyHop {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-12px); }
+        }
+
+        @keyframes foxStrut {
+            0% { transform: rotate(-4deg) translateY(0); }
+            100% { transform: rotate(4deg) translateY(-3px); }
+        }
+
+        @keyframes slothSloMo {
+            0% { transform: scaleX(1) translateX(0); }
+            100% { transform: scaleX(1.05) translateX(1px); }
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 380px) {
+            .card { padding: 30px 15px; }
+            h1 { font-size: 1.8rem; }
+            .time-num { font-size: 1.3rem; }
+            .time-label { font-size: 0.65rem; }
+            .moving-emoji { font-size: 32px; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="confetti-canvas"></canvas>
+
+    <div class="card">
+        <span class="heart-icon" role="img" aria-label="Heart">💖💖💖</span>
+        <h1>To My Beautiful <span class="title-highlight">Batoot</span></h1>
+        
+        <!-- Countdown section -->
+        <div class="countdown-container" id="countdown-wrapper">
+            <div class="time-box"><span class="time-num" id="days">00</span><span class="time-label">Days</span></div>
+            <div class="time-box"><span class="time-num" id="hours">00</span><span class="time-label">Hrs</span></div>
+            <div class="time-box"><span class="time-num" id="minutes">00</span><span class="time-label">Mins</span></div>
+            <div class="time-box"><span class="time-num" id="seconds">00</span><span class="time-label">Secs</span></div>
+        </div>
+
+        <!-- Animated Zootopia Characters Moving Across Screen Track -->
+        <div class="zootopia-theater">
+            <div class="theater-title">Zootopia Birthday Crew 🐾</div>
+            <div class="character-track">
+                
+                <div class="moving-sprite judy-walker">
+                    <span class="moving-emoji">🐰</span>
+                    <span class="moving-name">Judy</span>
+                </div>
+                
+                <div class="moving-sprite nick-walker">
+                    <span class="moving-emoji">🦊</span>
+                    <span class="moving-name">Nick</span>
+                </div>
+                
+                <div class="moving-sprite flash-walker">
+                    <span class="moving-emoji">🦥</span>
+                    <span class="moving-name">Flash...</span>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Dynamic inline text state -->
+        <p id="dynamic-text">Counting down every second until we celebrate the birth of my favorite person in the world. I love you!</p>
+        <div id="birthday-wish" class="birthday-message">Happy Birthday, my love! Here's to a lifetime of celebrating your special day together. 🥂✨</div>
+        
+        <button class="btn" onclick="burstConfetti()">Let's celebrate 🎉</button>
+    </div>
+
+    <!-- Canvas-Confetti Script -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
+    <script>
+        const canvas = document.getElementById('confetti-canvas');
+        const customConfetti = confetti.create(canvas, { resize: true });
+        let celebrationInterval;
+
+        // TARGET DATE: July 6th at 00:00:00 CLT (Cairo Local Time / UTC+3)
+        const targetDate = new Date('2026-07-06T00:00:00+03:00').getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const difference = targetDate - now;
+
+            if (difference <= 0) {
+                // Countdown complete!
+                document.getElementById('countdown-wrapper').style.display = 'none';
+                document.getElementById('dynamic-text').style.display = 'none';
+                document.getElementById('birthday-wish').style.display = 'block';
+                
+                clearInterval(countdownTimer);
+                
+                // Start a continuous confetti loop automatically
+                if (!celebrationInterval) {
+                    triggerContinuousConfetti();
+                }
+                return;
+            }
+
+            // Calculations for Days, Hours, Minutes, and Seconds
+            const d = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const h = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((difference % (1000 * 60)) / 1000);
+
+            // Display outputs with leading zeros
+            document.getElementById('days').innerText = d.toString().padStart(2, '0');
+            document.getElementById('hours').innerText = h.toString().padStart(2, '0');
+            document.getElementById('minutes').innerText = m.toString().padStart(2, '0');
+            document.getElementById('seconds').innerText = s.toString().padStart(2, '0');
+        }
+
+        // Run countdown timer every second
+        const countdownTimer = setInterval(updateCountdown, 1000);
+        updateCountdown(); // Run instantly on load
+
+        // Manual button tap explosion
+        function burstConfetti() {
+            customConfetti({
+                particleCount: 140,
+                spread: 80,
+                origin: { y: 0.6 },
+                colors: ['#d81b60', '#ec407a', '#f48fb1', '#ffeb3b', '#ffffff']
+            });
+        }
+
+        // Automatic side-firing loop when the date arrives
+        function triggerContinuousConfetti() {
+            celebrationInterval = setInterval(() => {
+                customConfetti({
+                    particleCount: 3,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0, y: 0.8 },
+                    colors: ['#d81b60', '#ec407a', '#f48fb1']
+                });
+                customConfetti({
+                    particleCount: 3,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1, y: 0.8 },
+                    colors: ['#d81b60', '#ec407a', '#f48fb1']
+                });
+            }, 150);
+        }
+    </script>
+</body>
+</html>
